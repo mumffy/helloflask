@@ -52,18 +52,20 @@ class Dummy(Resource):
         self.table = UsersTable()
 
     def post(self):
-        args = parser.parse_args()
-        app.logger.info("msg id:        %s", args[Keys.msg_id])
-        app.logger.info("queue name :   %s", args[Keys.queue_name])
-        app.logger.info("recieve count: %s", args[Keys.receive_count])
-        app.logger.info("my secret:     %s", args[Keys.my_secret])
-
-        self.table.add_row(
-            email_address=args[Keys.msg_id],
-            display_name='placeholder',
-            password=args[Keys.my_secret],
-        )
-        return '', 200
+        # args = parser.parse_args()
+        # app.logger.info("msg id:        %s", args[Keys.msg_id])
+        # app.logger.info("queue name :   %s", args[Keys.queue_name])
+        # app.logger.info("recieve count: %s", args[Keys.receive_count])
+        # app.logger.info("my secret:     %s", args[Keys.my_secret])
+        #
+        # self.table.add_row(
+        #     email_address=args[Keys.msg_id],
+        #     display_name='placeholder',
+        #     password=args[Keys.my_secret],
+        # )
+        print "my special printed message"
+        app.logger.info("my special logging message")
+        return 'fack', 200
 
 api.add_resource(Dummy, '/')
 
