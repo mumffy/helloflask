@@ -4,8 +4,8 @@ import boto3
 from flask import Flask, request
 from flask_restful import reqparse, abort, Api, Resource
 
-app = Flask(__name__)
-api = Api(app)
+application = Flask(__name__)
+api = Api(application)
 
 
 class Keys(object):
@@ -52,22 +52,21 @@ class Dummy(Resource):
         self.table = UsersTable()
 
     def post(self):
-        # args = parser.parse_args()
-        # app.logger.info("msg id:        %s", args[Keys.msg_id])
-        # app.logger.info("queue name :   %s", args[Keys.queue_name])
-        # app.logger.info("recieve count: %s", args[Keys.receive_count])
-        # app.logger.info("my secret:     %s", args[Keys.my_secret])
-        #
-        # self.table.add_row(
-        #     email_address=args[Keys.msg_id],
-        #     display_name='placeholder',
-        #     password=args[Keys.my_secret],
-        # )
-        print "my special printed message"
-        app.logger.info("my special logging message")
-        return 'fack', 200
+        args = parser.parse_args()
+        log = application.logger
+        log.info("msg id:        %s", args[Keys.msg_id])
+        log.info("queue name :   %s", args[Keys.queue_name])
+        log.info("recieve count: %s", args[Keys.receive_count])
+        log.info("my secret:     %s", args[Keys.my_secret])
+
+        self.table.add_row(
+            email_address=args[Keys.msg_id],
+            display_name='placeholder',
+            password=args[Keys.my_secret],
+        )
+        return '', 200
 
 api.add_resource(Dummy, '/')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
